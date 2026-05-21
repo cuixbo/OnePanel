@@ -111,11 +111,47 @@ The generated app bundle is written to:
 dist/OnePanel.app
 ```
 
+### Build a local `.dmg`
+
+```bash
+./scripts/build-dmg.sh
+```
+
+The generated installer image is written to:
+
+```text
+dist/OnePanel.dmg
+```
+
 ### Build and launch the app bundle
 
 ```bash
 ./scripts/run-app.sh
 ```
+
+## GitHub DMG Distribution
+
+This project includes a GitHub Actions workflow at [.github/workflows/build-dmg.yml](/Volumes/D/xbc/iOSProjects/OnePanel/.github/workflows/build-dmg.yml) that builds an unsigned `.dmg` on:
+
+- manual `workflow_dispatch`
+- pushes of tags matching `v*`
+- published GitHub Releases
+
+Each run uploads `dist/OnePanel.dmg` as a workflow artifact. Tag and Release runs also attach the `.dmg` to the GitHub Release so other people can download it directly.
+
+## Opening an Unsigned Build
+
+The distributed `.dmg` is intended for local-style distribution and is not Developer ID signed or notarized. On another Mac, the first launch may be blocked with an "unknown developer" warning.
+
+If that happens, the user can open it like this:
+
+1. Drag `OnePanel.app` into `Applications`.
+2. Try opening it once from Finder, then dismiss the warning.
+3. Open `System Settings` -> `Privacy & Security`.
+4. Find the blocked app message near the bottom and click `Open Anyway`.
+5. Confirm the final prompt to launch the app.
+
+Another common shortcut is Control-clicking the app in Finder and choosing `Open`, then confirming the prompt.
 
 ## Project Structure
 
