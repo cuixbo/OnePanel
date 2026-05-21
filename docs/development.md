@@ -108,6 +108,8 @@ dist/OnePanel.app
 dist/OnePanel.dmg
 ```
 
+这个脚本只保留 `dmg` 产物，不会在 `dist` 里长期保留额外的 `OnePanel.app`，这样可以减少 Launchpad 把开发版、打包版和临时归档产物识别成多个入口的概率。
+
 ## 构建并启动应用包
 
 ```bash
