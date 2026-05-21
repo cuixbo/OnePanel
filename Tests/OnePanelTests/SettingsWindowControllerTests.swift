@@ -20,13 +20,13 @@ struct SettingsWindowControllerTests {
             onQuit: {}
         )
 
-        #expect(SettingsWindowController.defaultWindowRect.width == 560)
-        #expect(SettingsWindowController.defaultWindowRect.height == 420)
-        #expect(SettingsWindowController.defaultContentSize.width == 520)
-        #expect(SettingsWindowController.defaultContentSize.height == 380)
+        #expect(SettingsWindowController.defaultWindowRect.width == 600)
+        #expect(SettingsWindowController.defaultWindowRect.height == 540)
+        #expect(SettingsWindowController.defaultContentSize.width == 560)
+        #expect(SettingsWindowController.defaultContentSize.height == 500)
         let window = try #require(controller.window)
         #expect(window.styleMask.contains(.resizable))
-        #expect(window.contentMinSize.width == 520)
-        #expect(window.contentMinSize.height == 380)
+        #expect(window.contentMinSize.width == 560)
+        #expect(window.contentMinSize.height == 500)
     }
 }

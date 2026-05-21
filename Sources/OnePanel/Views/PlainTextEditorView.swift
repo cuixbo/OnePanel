@@ -29,13 +29,11 @@ struct PlainTextEditorView: NSViewRepresentable {
         textView.allowsUndo = true
         textView.drawsBackground = false
         textView.backgroundColor = .clear
-        textView.textColor = .labelColor
-        textView.font = .monospacedSystemFont(ofSize: NSFont.systemFontSize, weight: .regular)
-        textView.insertionPointColor = .labelColor
         textView.textContainerInset = NSSize(width: 4, height: 8)
         context.coordinator.isSynchronizingFromModel = true
         textView.string = model.documentText
         context.coordinator.isSynchronizingFromModel = false
+        Self.applyAppearance(model.settings.editorAppearance, to: textView)
         textView.delegate = context.coordinator
 
         return scrollView
@@ -53,6 +51,45 @@ struct PlainTextEditorView: NSViewRepresentable {
             textView.string = model.documentText
             context.coordinator.isSynchronizingFromModel = false
         }
+
+        Self.applyAppearance(model.settings.editorAppearance, to: textView)
+    }
+
+    @MainActor
+    static func applyAppearance(_ appearance: EditorAppearance, to textView: NSTextView) {
+        let font = appearance.resolvedFont()
+        let textColor = appearance.textColor.nsColor
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = CGFloat(appearance.lineSpacing)
+
+        textView.font = font
+        textView.textColor = textColor
+        textView.insertionPointColor = textColor
+        textView.defaultParagraphStyle = paragraphStyle
+
+        var typingAttributes = textView.typingAttributes
+        typingAttributes[.font] = font
+        typingAttributes[.foregroundColor] = textColor
+        typingAttributes[.paragraphStyle] = paragraphStyle
+        textView.typingAttributes = typingAttributes
+
+        guard let textStorage = textView.textStorage else {
+            return
+        }
+
+        let fullRange = NSRange(location: 0, length: textStorage.length)
+        textStorage.beginEditing()
+        if fullRange.length > 0 {
+            textStorage.addAttributes(
+                [
+                    .font: font,
+                    .foregroundColor: textColor,
+                    .paragraphStyle: paragraphStyle
+                ],
+                range: fullRange
+            )
+        }
+        textStorage.endEditing()
     }
 
     @MainActor

@@ -64,6 +64,43 @@ struct SettingsView: View {
                     )
                 }
 
+                settingsSection(title: "编辑器外观") {
+                    settingRow(title: "字体") {
+                        Picker("", selection: fontFamilyBinding) {
+                            Text("System Monospaced").tag(EditorAppearance.systemMonospacedIdentifier)
+
+                            ForEach(availableFontFamilies, id: \.self) { fontFamily in
+                                Text(fontFamily).tag(fontFamily)
+                            }
+                        }
+                        .pickerStyle(.menu)
+                        .frame(width: 220)
+                    }
+
+                    settingRow(title: "字重") {
+                        Picker("", selection: fontWeightBinding) {
+                            ForEach(EditorFontWeight.allCases, id: \.self) { weight in
+                                Text(weight.displayName).tag(weight)
+                            }
+                        }
+                        .pickerStyle(.menu)
+                        .frame(width: 160)
+                    }
+
+                    Stepper(value: fontSizeBinding, in: 10 ... 36, step: 1) {
+                        settingValueRow(title: "字号", value: "\(Int(model.settings.editorAppearance.fontSize.rounded())) pt")
+                    }
+
+                    Stepper(value: lineSpacingBinding, in: 0 ... 20, step: 1) {
+                        settingValueRow(title: "行间距", value: "\(Int(model.settings.editorAppearance.lineSpacing.rounded())) pt")
+                    }
+
+                    settingRow(title: "颜色") {
+                        EditorColorWell(color: textColorBinding)
+                            .frame(width: 52, height: 28)
+                    }
+                }
+
                 Divider()
 
                 HStack {
@@ -82,6 +119,10 @@ struct SettingsView: View {
         .onChange(of: displayKey) { _, newValue in
             displayKey = String(newValue.uppercased().prefix(1))
         }
+    }
+
+    private var availableFontFamilies: [String] {
+        NSFontManager.shared.availableFontFamilies.sorted()
     }
 
     private var canApplyHotkey: Bool {
@@ -126,10 +167,98 @@ struct SettingsView: View {
         onApplyHotkey(hotkey)
     }
 
+    private var fontFamilyBinding: Binding<String> {
+        Binding(
+            get: {
+                model.settings.editorAppearance.fontFamilyName ?? EditorAppearance.systemMonospacedIdentifier
+            },
+            set: { newValue in
+                do {
+                    try model.setEditorFontFamily(
+                        newValue == EditorAppearance.systemMonospacedIdentifier ? nil : newValue
+                    )
+                } catch {
+                    NSLog("OnePanel failed to save editor font family: \(error.localizedDescription)")
+                }
+            }
+        )
+    }
+
+    private var fontWeightBinding: Binding<EditorFontWeight> {
+        Binding(
+            get: { model.settings.editorAppearance.fontWeight },
+            set: { newValue in
+                do {
+                    try model.setEditorFontWeight(newValue)
+                } catch {
+                    NSLog("OnePanel failed to save editor font weight: \(error.localizedDescription)")
+                }
+            }
+        )
+    }
+
+    private var fontSizeBinding: Binding<Double> {
+        Binding(
+            get: { model.settings.editorAppearance.fontSize },
+            set: { newValue in
+                do {
+                    try model.setEditorFontSize(newValue)
+                } catch {
+                    NSLog("OnePanel failed to save editor font size: \(error.localizedDescription)")
+                }
+            }
+        )
+    }
+
+    private var lineSpacingBinding: Binding<Double> {
+        Binding(
+            get: { model.settings.editorAppearance.lineSpacing },
+            set: { newValue in
+                do {
+                    try model.setEditorLineSpacing(newValue)
+                } catch {
+                    NSLog("OnePanel failed to save editor line spacing: \(error.localizedDescription)")
+                }
+            }
+        )
+    }
+
+    private var textColorBinding: Binding<NSColor> {
+        Binding(
+            get: { model.settings.editorAppearance.textColor.nsColor },
+            set: { newValue in
+                do {
+                    try model.setEditorTextColor(.custom(EditorColor(nsColor: newValue)))
+                } catch {
+                    NSLog("OnePanel failed to save editor text color: \(error.localizedDescription)")
+                }
+            }
+        )
+    }
+
     @ViewBuilder
     private func modifierToggle(_ title: String, isOn: Binding<Bool>) -> some View {
         Toggle(title, isOn: isOn)
             .fixedSize()
+    }
+
+    @ViewBuilder
+    private func settingRow<Content: View>(title: String, @ViewBuilder content: () -> Content) -> some View {
+        HStack(alignment: .center, spacing: 16) {
+            Text(title)
+            Spacer()
+            content()
+        }
+    }
+
+    @ViewBuilder
+    private func settingValueRow(title: String, value: String) -> some View {
+        HStack(alignment: .center, spacing: 16) {
+            Text(title)
+            Spacer()
+            Text(value)
+                .foregroundStyle(.secondary)
+        }
     }
 
     @ViewBuilder

@@ -57,4 +57,29 @@ public final class AppModel: ObservableObject {
         settings.launchAtLogin = shouldLaunchAtLogin
         try settingsStore.save(settings)
     }
+
+    public func setEditorFontFamily(_ fontFamilyName: String?) throws {
+        settings.editorAppearance.fontFamilyName = fontFamilyName
+        try settingsStore.save(settings)
+    }
+
+    public func setEditorFontSize(_ fontSize: Double) throws {
+        settings.editorAppearance.fontSize = fontSize
+        try settingsStore.save(settings)
+    }
+
+    public func setEditorFontWeight(_ fontWeight: EditorFontWeight) throws {
+        settings.editorAppearance.fontWeight = fontWeight
+        try settingsStore.save(settings)
+    }
+
+    public func setEditorLineSpacing(_ lineSpacing: Double) throws {
+        settings.editorAppearance.lineSpacing = lineSpacing
+        try settingsStore.save(settings)
+    }
+
+    public func setEditorTextColor(_ textColor: EditorTextColor) throws {
+        settings.editorAppearance.textColor = textColor
+        try settingsStore.save(settings)
+    }
 }

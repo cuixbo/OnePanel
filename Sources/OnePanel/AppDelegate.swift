@@ -101,7 +101,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     @objc
     private func handleStatusItemClick() {
         guard let event = NSApp.currentEvent else {
-            togglePanel()
+            showPanelFromStatusItem()
             return
         }
 
@@ -109,7 +109,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         case .rightMouseUp:
             showStatusMenu()
         default:
-            togglePanel()
+            showPanelFromStatusItem()
         }
     }
 
@@ -174,6 +174,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             return
         }
 
+        panelController?.applyPinnedState(model.settings.isPinned)
+        panelController?.showPanel()
+    }
+
+    private func showPanelFromStatusItem() {
         panelController?.applyPinnedState(model.settings.isPinned)
         panelController?.showPanel()
     }

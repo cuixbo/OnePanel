@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1088F5812997E0C736DF9820 /* WindowFrameStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A06A938E1EA1496A877D08D /* WindowFrameStateTests.swift */; };
+		14CC97E8832BE2EAA86C2306 /* EditorAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80200A0E05CD69791384849 /* EditorAppearance.swift */; };
 		15EBDB490C9C952B759CFDC1 /* WindowFrameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F107B250502D021A3EC208B8 /* WindowFrameState.swift */; };
 		1F940F010FAC8F30819A6BB8 /* StatusMenuContentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA490EEC05E268C1321677F /* StatusMenuContentTests.swift */; };
 		230A180BFA4FF1B569AB61FB /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D45910841810B6F27E666BB /* AppModel.swift */; };
@@ -27,6 +28,8 @@
 		961620487BCC878C283F9B15 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D55B564937B4A3744F3C03 /* AppSettings.swift */; };
 		973189704F8C3119C756C9DD /* SingleInstanceCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CD06F252B02C60C6CE73DD /* SingleInstanceCoordinatorTests.swift */; };
 		9BF61C5B76F42DB69CDDEAC6 /* DocumentStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0B803E64EF4BD30D5CF158 /* DocumentStoreTests.swift */; };
+		9C6E6D411983DD3354A4184A /* PlainTextEditorViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F85C24499851DA195EA31F1 /* PlainTextEditorViewTests.swift */; };
+		A83AA82668B28E56A32717A8 /* EditorColorWell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9E711EF6E563C58D16AC6E /* EditorColorWell.swift */; };
 		B06C6ABCB18330069AEA4335 /* DocumentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7ABD658EA6026AFDF09148 /* DocumentStore.swift */; };
 		B6832DD75F44FEEE6364A2B6 /* TestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3DC1DE50D1D400BD4B28D6 /* TestSupport.swift */; };
 		BCB277BFF4BFD7988CAA7473 /* SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C9CB850841F035EFEC3107 /* SettingsWindowController.swift */; };
@@ -52,12 +55,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C9E711EF6E563C58D16AC6E /* EditorColorWell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorColorWell.swift; sourceTree = "<group>"; };
 		0E7ABD658EA6026AFDF09148 /* DocumentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentStore.swift; sourceTree = "<group>"; };
 		156C48BB2BACE2DCB5F587B3 /* PlainTextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainTextEditorView.swift; sourceTree = "<group>"; };
 		18CD06F252B02C60C6CE73DD /* SingleInstanceCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleInstanceCoordinatorTests.swift; sourceTree = "<group>"; };
 		20D55B564937B4A3744F3C03 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		2365AD32ABBCCFAD48C165E7 /* OnePanel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnePanel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BA735D8151855769D7293A2 /* StatusMenuContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusMenuContent.swift; sourceTree = "<group>"; };
+		2F85C24499851DA195EA31F1 /* PlainTextEditorViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainTextEditorViewTests.swift; sourceTree = "<group>"; };
 		326D8C0BC635777818136704 /* LaunchAtLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginManager.swift; sourceTree = "<group>"; };
 		383604B46B3BAC63BB4761D9 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
 		3A06A938E1EA1496A877D08D /* WindowFrameStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowFrameStateTests.swift; sourceTree = "<group>"; };
@@ -79,6 +84,7 @@
 		AA431BB1DCEF55433945AA1B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B676569B294B225BA8E6E7F6 /* PanelRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelRootView.swift; sourceTree = "<group>"; };
 		B70FD6285F3B6F0B2FEF61F5 /* HotkeyConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyConfiguration.swift; sourceTree = "<group>"; };
+		B80200A0E05CD69791384849 /* EditorAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorAppearance.swift; sourceTree = "<group>"; };
 		C48A52E64A209DC6D6BD11ED /* StatusBarIconFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarIconFactoryTests.swift; sourceTree = "<group>"; };
 		CCCC980C3281A7B680D6B685 /* SingleInstanceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleInstanceCoordinator.swift; sourceTree = "<group>"; };
 		CEA490EEC05E268C1321677F /* StatusMenuContentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusMenuContentTests.swift; sourceTree = "<group>"; };
@@ -115,6 +121,7 @@
 		1E92413B91317E1930018777 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0C9E711EF6E563C58D16AC6E /* EditorColorWell.swift */,
 				B676569B294B225BA8E6E7F6 /* PanelRootView.swift */,
 				156C48BB2BACE2DCB5F587B3 /* PlainTextEditorView.swift */,
 				AA431BB1DCEF55433945AA1B /* SettingsView.swift */,
@@ -143,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				20D55B564937B4A3744F3C03 /* AppSettings.swift */,
+				B80200A0E05CD69791384849 /* EditorAppearance.swift */,
 				B70FD6285F3B6F0B2FEF61F5 /* HotkeyConfiguration.swift */,
 				2BA735D8151855769D7293A2 /* StatusMenuContent.swift */,
 				F107B250502D021A3EC208B8 /* WindowFrameState.swift */,
@@ -184,6 +192,7 @@
 				7D0B803E64EF4BD30D5CF158 /* DocumentStoreTests.swift */,
 				93BC249FBD710D955CEFD4D0 /* LaunchDispositionTests.swift */,
 				91FD98F838FE1C8D6A1209E7 /* PanelWindowControllerTests.swift */,
+				2F85C24499851DA195EA31F1 /* PlainTextEditorViewTests.swift */,
 				8654A68F7484C16058364B26 /* SettingsStoreTests.swift */,
 				57145B95FECA50DC0D7BF0E2 /* SettingsWindowControllerTests.swift */,
 				18CD06F252B02C60C6CE73DD /* SingleInstanceCoordinatorTests.swift */,
@@ -300,6 +309,8 @@
 				690273F258642140526FAD42 /* AppPaths.swift in Sources */,
 				961620487BCC878C283F9B15 /* AppSettings.swift in Sources */,
 				B06C6ABCB18330069AEA4335 /* DocumentStore.swift in Sources */,
+				14CC97E8832BE2EAA86C2306 /* EditorAppearance.swift in Sources */,
+				A83AA82668B28E56A32717A8 /* EditorColorWell.swift in Sources */,
 				2DC42F6583F8E462659DFA7A /* HotkeyConfiguration.swift in Sources */,
 				2DF480C7E251191638C25221 /* HotkeyManager.swift in Sources */,
 				455C6622B2586B47AD55EC0D /* LaunchAtLoginManager.swift in Sources */,
@@ -326,6 +337,7 @@
 				9BF61C5B76F42DB69CDDEAC6 /* DocumentStoreTests.swift in Sources */,
 				ED2056D1ABE37595AB99E145 /* LaunchDispositionTests.swift in Sources */,
 				509F65F34C6D0978C948107A /* PanelWindowControllerTests.swift in Sources */,
+				9C6E6D411983DD3354A4184A /* PlainTextEditorViewTests.swift in Sources */,
 				BEE84B738E5A70413E5E9261 /* SettingsStoreTests.swift in Sources */,
 				5D35DA66BCC18857AA56996C /* SettingsWindowControllerTests.swift in Sources */,
 				973189704F8C3119C756C9DD /* SingleInstanceCoordinatorTests.swift in Sources */,

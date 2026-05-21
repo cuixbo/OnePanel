@@ -106,7 +106,8 @@ struct PanelWindowControllerTests {
                 rememberWindowState: true,
                 launchAtLogin: false,
                 isPinned: false,
-                lastWindowFrame: savedFrame
+                lastWindowFrame: savedFrame,
+                editorAppearance: .defaultValue
             )
         )
 

@@ -3,8 +3,8 @@ import SwiftUI
 
 @MainActor
 final class SettingsWindowController: NSWindowController {
-    static let defaultContentSize = NSSize(width: 520, height: 380)
-    static let defaultWindowRect = NSRect(x: 320, y: 320, width: 560, height: 420)
+    static let defaultContentSize = NSSize(width: 560, height: 500)
+    static let defaultWindowRect = NSRect(x: 320, y: 320, width: 600, height: 540)
 
     init(
         model: AppModel,

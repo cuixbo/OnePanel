@@ -129,4 +129,27 @@ struct AppModelTests {
         let reloaded = try SettingsStore(fileURL: settingsURL).load()
         #expect(reloaded.rememberWindowState == false)
     }
+
+    @Test
+    func persistsEditorAppearancePreferences() throws {
+        let tempDir = try makeTemporaryDirectory()
+        let settingsURL = tempDir.appending(path: "settings.json")
+        let model = AppModel(
+            documentStore: DocumentStore(fileURL: tempDir.appending(path: "document.txt")),
+            settingsStore: SettingsStore(fileURL: settingsURL)
+        )
+
+        try model.setEditorFontFamily("Helvetica")
+        try model.setEditorFontSize(20)
+        try model.setEditorFontWeight(.bold)
+        try model.setEditorLineSpacing(8)
+        try model.setEditorTextColor(.custom(EditorColor(red: 0.1, green: 0.2, blue: 0.3, alpha: 1)))
+
+        let reloaded = try SettingsStore(fileURL: settingsURL).load()
+        #expect(reloaded.editorAppearance.fontFamilyName == "Helvetica")
+        #expect(reloaded.editorAppearance.fontSize == 20)
+        #expect(reloaded.editorAppearance.fontWeight == .bold)
+        #expect(reloaded.editorAppearance.lineSpacing == 8)
+        #expect(reloaded.editorAppearance.textColor == .custom(EditorColor(red: 0.1, green: 0.2, blue: 0.3, alpha: 1)))
+    }
 }

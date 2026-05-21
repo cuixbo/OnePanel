@@ -24,7 +24,14 @@ struct SettingsStoreTests {
             rememberWindowState: true,
             launchAtLogin: true,
             isPinned: true,
-            lastWindowFrame: state
+            lastWindowFrame: state,
+            editorAppearance: EditorAppearance(
+                fontFamilyName: "Helvetica",
+                fontSize: 18,
+                fontWeight: .semibold,
+                lineSpacing: 6,
+                textColor: .custom(EditorColor(red: 0.12, green: 0.34, blue: 0.56, alpha: 1))
+            )
         )
 
         try store.save(expected)
@@ -43,11 +50,48 @@ struct SettingsStoreTests {
             rememberWindowState: false,
             launchAtLogin: true,
             isPinned: false,
-            lastWindowFrame: WindowFrameState(x: 88, y: 120, width: 777, height: 555)
+            lastWindowFrame: WindowFrameState(x: 88, y: 120, width: 777, height: 555),
+            editorAppearance: EditorAppearance(
+                fontFamilyName: nil,
+                fontSize: 17,
+                fontWeight: .regular,
+                lineSpacing: 4,
+                textColor: .systemLabel
+            )
         )
 
         try store.save(expected)
 
         #expect(try store.load() == expected)
+    }
+
+    @Test
+    func loadsLegacySettingsWithoutEditorAppearanceUsingDefaults() throws {
+        let tempDir = try makeTemporaryDirectory()
+        let fileURL = tempDir.appending(path: "settings.json")
+        let legacyJSON = """
+        {
+          "hotkey": {
+            "keyCode": 35,
+            "modifiers": 3
+          },
+          "rememberWindowState": false,
+          "launchAtLogin": true,
+          "isPinned": true,
+          "lastWindowFrame": {
+            "x": 12,
+            "y": 34,
+            "width": 640,
+            "height": 480
+          }
+        }
+        """
+        try legacyJSON.write(to: fileURL, atomically: true, encoding: .utf8)
+
+        let settings = try SettingsStore(fileURL: fileURL).load()
+
+        #expect(settings.editorAppearance == .defaultValue)
+        #expect(settings.launchAtLogin == true)
+        #expect(settings.isPinned == true)
     }
 }
