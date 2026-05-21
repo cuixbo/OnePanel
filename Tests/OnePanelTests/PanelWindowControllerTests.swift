@@ -141,6 +141,52 @@ struct PanelWindowControllerTests {
         #expect(isClose(restoredFrame.size.height, to: savedFrame.height))
     }
 
+    @Test
+    func appliesCurrentSpaceBehaviorWhenPanelIsNotPinned() throws {
+        let tempDir = try makeTemporaryDirectory()
+        let model = AppModel(
+            documentStore: DocumentStore(fileURL: tempDir.appending(path: "document.txt")),
+            settingsStore: SettingsStore(fileURL: tempDir.appending(path: "settings.json"))
+        )
+
+        let controller = PanelWindowController(
+            model: model,
+            onTogglePin: {},
+            onOpenSettings: {}
+        )
+
+        controller.applyPinnedState(false)
+
+        let window = controller.panelWindowForTesting
+        #expect(window.level == .normal)
+        #expect(window.collectionBehavior.contains(.moveToActiveSpace))
+        #expect(window.collectionBehavior.contains(.fullScreenAuxiliary))
+        #expect(window.collectionBehavior.contains(.canJoinAllSpaces) == false)
+    }
+
+    @Test
+    func appliesAllSpacesBehaviorWhenPanelIsPinned() throws {
+        let tempDir = try makeTemporaryDirectory()
+        let model = AppModel(
+            documentStore: DocumentStore(fileURL: tempDir.appending(path: "document.txt")),
+            settingsStore: SettingsStore(fileURL: tempDir.appending(path: "settings.json"))
+        )
+
+        let controller = PanelWindowController(
+            model: model,
+            onTogglePin: {},
+            onOpenSettings: {}
+        )
+
+        controller.applyPinnedState(true)
+
+        let window = controller.panelWindowForTesting
+        #expect(window.level == .floating)
+        #expect(window.collectionBehavior.contains(.canJoinAllSpaces))
+        #expect(window.collectionBehavior.contains(.fullScreenAuxiliary))
+        #expect(window.collectionBehavior.contains(.moveToActiveSpace) == false)
+    }
+
     private func findTextView(in window: NSWindow) -> NSTextView? {
         guard let contentView = window.contentView else {
             return nil

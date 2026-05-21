@@ -48,13 +48,17 @@ final class PanelWindowController: NSObject, NSWindowDelegate, NSToolbarDelegate
     }
 
     func showPanel() {
-        NSApp.activate(ignoringOtherApps: true)
-        window.orderFrontRegardless()
-        window.makeKeyAndOrderFront(nil)
-        window.makeMain()
         if model.settings.rememberWindowState {
             restoreSavedFrameIfNeeded()
         }
+
+        NSRunningApplication.current.activate(options: [.activateAllWindows])
+        NSApp.activate(ignoringOtherApps: true)
+        window.orderFrontRegardless()
+        window.order(.above, relativeTo: 0)
+        window.makeKeyAndOrderFront(nil)
+        window.makeMain()
+        window.makeFirstResponder(window.contentView)
         canPersistWindowFrame = true
         model.setPanelVisibility(true)
     }
@@ -66,6 +70,9 @@ final class PanelWindowController: NSObject, NSWindowDelegate, NSToolbarDelegate
 
     func applyPinnedState(_ isPinned: Bool) {
         window.level = isPinned ? .floating : .normal
+        window.collectionBehavior = isPinned
+            ? [.canJoinAllSpaces, .fullScreenAuxiliary]
+            : [.moveToActiveSpace, .fullScreenAuxiliary]
         refreshPinToolbarItem()
     }
 
@@ -111,7 +118,7 @@ final class PanelWindowController: NSObject, NSWindowDelegate, NSToolbarDelegate
         window.hasShadow = true
         window.contentMinSize = NSSize(width: 360, height: 280)
         window.delegate = self
-        window.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
+        applyPinnedState(model.settings.isPinned)
         window.titleVisibility = .visible
         window.titlebarAppearsTransparent = true
         window.toolbarStyle = .unifiedCompact

@@ -10,6 +10,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private let hotkeyManager = HotkeyManager()
     private let launchAtLoginManager = LaunchAtLoginManager()
+    private let statusItemPanelPresenter = StatusItemPanelPresenter()
     private var panelController: PanelWindowController?
     private var settingsWindowController: SettingsWindowController?
     private var statusItem: NSStatusItem?
@@ -101,7 +102,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     @objc
     private func handleStatusItemClick() {
         guard let event = NSApp.currentEvent else {
-            showPanelFromStatusItem()
+            statusItemPanelPresenter.presentAfterStatusItemClick { [weak self] in
+                self?.showPanelFromStatusItem()
+            }
             return
         }
 
@@ -109,7 +112,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         case .rightMouseUp:
             showStatusMenu()
         default:
-            showPanelFromStatusItem()
+            statusItemPanelPresenter.presentAfterStatusItemClick { [weak self] in
+                self?.showPanelFromStatusItem()
+            }
         }
     }
 
