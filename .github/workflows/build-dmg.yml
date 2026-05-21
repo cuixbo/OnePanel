@@ -11,14 +11,17 @@ permissions:
 
 jobs:
   build-dmg:
-    runs-on: macos-14
+    runs-on: macos-15
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
       - name: Select Xcode
-        run: sudo xcode-select -switch /Applications/Xcode.app
+        run: sudo xcode-select -switch /Applications/Xcode_26.3.app
+
+      - name: Show selected Xcode
+        run: xcodebuild -version
 
       - name: Build unsigned DMG
         run: ./scripts/build-dmg.sh
